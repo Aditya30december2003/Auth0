@@ -24,7 +24,7 @@ export default function Home() {
     <div className="min-h-screen flex items-center justify-center p-4 md:p-8">
       <div className="flex flex-col lg:flex-row items-center justify-center w-full max-w-6xl gap-8 lg:gap-12">
         
-        {/* Image Container - Hidden on small screens, visible on medium and up */}
+
         <div className="hidden md:block w-full lg:w-1/2 max-w-md">
           <div className="relative h-64 md:h-80 w-full">
             {images.slice(imageIdx, imageIdx + 1).map((image, index) => (
@@ -44,7 +44,7 @@ export default function Home() {
             ))}
           </div>
           
-          {/* Dots indicator for mobile */}
+          
           <div className="flex justify-center mt-4 space-x-2 md:hidden">
             {images.map((_, idx) => (
               <button
@@ -59,7 +59,7 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Login Container */}
+
         <div className="w-full lg:w-1/2 max-w-lg">
           <div className="border-2 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0)] md:shadow-[10px_10px_0px_0px_rgba(0,0,0)] p-6 md:p-8 bg-white rounded-lg">
             <div className="text-center">
@@ -71,7 +71,7 @@ export default function Home() {
               </p>
             </div>
             
-            {/* Image carousel for mobile */}
+           
             <div className="mt-6 md:hidden">
               <div className="relative h-48 w-full mx-auto">
                 {images.slice(imageIdx, imageIdx + 1).map((image, index) => (

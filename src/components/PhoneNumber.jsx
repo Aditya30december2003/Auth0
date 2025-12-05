@@ -112,8 +112,6 @@ export default function PhoneForm() {
       />
       
       <div className="text-center flex flex-col items-center sm:flex-row md:w-[100%] sm:w-[100%] mx-auto gap-3 md:gap-6 md:p-4 sm:p-1">
-        
-        {/* Country Select */}
         <select 
           className="w-[70%] lg:w-[30%] p-2 border shadow-[10px_10px_0px_0px_rgba(0,0,0)] outline-none font-bold text-sm sm:text-base"
           value={selectedDialCode}
@@ -127,7 +125,7 @@ export default function PhoneForm() {
           ))}
         </select>
         
-        {/* Phone Input */}
+        
         <input
           className="w-full sm:flex-1 p-2 border shadow-[10px_10px_0px_0px_rgba(0,0,0)] outline-none font-bold text-sm sm:text-base"
           value={phone}
@@ -137,7 +135,7 @@ export default function PhoneForm() {
           disabled={isLoading}
         />
         
-        {/* Save Button */}
+        
         <button
           onClick={save}
           disabled={isLoading}

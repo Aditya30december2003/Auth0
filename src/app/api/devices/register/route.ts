@@ -1,7 +1,8 @@
-// app/api/devices/register/route.ts
+
 import { NextRequest, NextResponse } from "next/server";
 import { auth0 } from "@/lib/auth0";
 import axios from "axios";
+import { getManagementApiToken } from '@/lib/auth0Token'
 
 type DeviceInfo = {
   deviceId: string;
@@ -11,8 +12,8 @@ type DeviceInfo = {
   killed?: boolean;
 };
 
-// For the assignment: N = 3
-const N = 1;
+
+const N = 1;//3
 
 export async function POST(req: NextRequest) {
   const session = await auth0.getSession(req);
@@ -34,7 +35,7 @@ export async function POST(req: NextRequest) {
   }
 
   const rawDomain = process.env.AUTH0_DOMAIN;
-  const mgmtToken = process.env.API_TOKEN;
+  const mgmtToken = await getManagementApiToken()
 
   if (!rawDomain || !mgmtToken) {
     console.error("Missing AUTH0_DOMAIN or API_TOKEN");

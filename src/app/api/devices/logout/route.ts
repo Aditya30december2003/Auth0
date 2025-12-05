@@ -1,7 +1,7 @@
-// app/api/devices/logout/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import { auth0 } from "@/lib/auth0";
 import axios from "axios";
+import { getManagementApiToken } from "@/lib/auth0Token";
 
 type DeviceInfo = {
   deviceId: string;
@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
 
   const rawDomain = process.env.AUTH0_DOMAIN!;
   const domain = rawDomain.replace("https://", "");
-  const mgmtToken = process.env.API_TOKEN!;
+  const mgmtToken = await getManagementApiToken()
 
   try {
     const { data: freshUser } = await axios.get(
@@ -47,13 +47,12 @@ export async function POST(req: NextRequest) {
 
     let devices: DeviceInfo[] = freshUser.user_metadata?.devices || [];
 
-    // Option A: mark as killed
+    
     devices = devices.map((d) =>
       d.deviceId === currentDeviceId ? { ...d, killed: true } : d
     );
 
-    // (Option B: actually remove the device instead of killed = true)
-    // devices = devices.filter(d => d.deviceId !== currentDeviceId);
+    
 
     await axios.patch(
       `https://${domain}/api/v2/users/${encodeURIComponent(userId)}`,

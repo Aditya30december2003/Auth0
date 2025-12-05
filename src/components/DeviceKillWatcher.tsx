@@ -1,4 +1,3 @@
-// app/components/DeviceKillWatcher.tsx
 "use client";
 
 import { useEffect } from "react";
@@ -32,5 +31,5 @@ export default function DeviceKillWatcher({
     }
   }, [devices, router]);
 
-  return null; // nothing visual
+  return null; 
 }

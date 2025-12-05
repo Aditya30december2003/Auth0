@@ -1,4 +1,3 @@
-// "use client";
 "use client";
 
 import { useState } from "react";
@@ -23,7 +22,6 @@ export default function LogoutButton() {
         }).catch((err) => console.error("device logout failed:", err));
       }
     } finally {
-      // Always log out from Auth0 even if metadata update fails
       window.location.href = "/auth/logout";
     }
   };
@@ -34,7 +32,9 @@ export default function LogoutButton() {
       disabled={loading}
       className="block w-full text-center px-4 py-2 bg-black text-white transition disabled:opacity-60 cursor-pointer"
     >
-      {loading ? "Logging out..." : "LOG OUT"}
+      <a href="/auth/logout">
+      Logout
+    </a>
     </button>
   );
 }

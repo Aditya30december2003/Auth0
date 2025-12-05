@@ -1,4 +1,3 @@
-// app/profile/page.tsx
 import { auth0 } from "@/lib/auth0";
 import axios from "axios";
 import DeviceLimitGuard from "@/components/DeviceLimitGuard";
@@ -79,15 +78,15 @@ export default async function ProfilePage() {
       />
       
       <div className="w-full max-w-6xl">
-        {/* 👇 CLIENT components */}
+      
         <DeviceLimitGuard />
         
         <div className="flex flex-col lg:flex-row gap-6 md:gap-8">
-          {/* Left Column - Profile Card */}
+          
           <div className="w-full lg:w-2/3 mx-auto">
             <div className="bg-white rounded-xl md:rounded-2xl shadow-[0_4px_12px_rgba(0,0,0,0.08)] sm:shadow-[0_8px_24px_rgba(0,0,0,0.08)] md:shadow-[0_10px_40px_rgba(0,0,0,0.08)] p-4 sm:p-6 md:p-8">
               
-              {/* Header */}
+              
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 sm:mb-8 gap-4">
                 <div>
                   <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Profile</h1>
@@ -107,9 +106,9 @@ export default async function ProfilePage() {
                 </div>
               </div>
 
-              {/* Profile Details */}
+             
               <div className="space-y-4 sm:space-y-6">
-                {/* Name */}
+               
                 <div className="border-2 sm:border-4 border-black pl-3 sm:pl-5 py-3 bg-black shadow-[3px_3px_0px_0px_rgba(255,255,255)] sm:shadow-[5px_5px_0px_0px_rgba(255,255,255)]">
                   <div className="flex items-center gap-2 sm:gap-3 mb-1">
                     <FaUser className="text-sm sm:text-base text-white" />
@@ -118,7 +117,7 @@ export default async function ProfilePage() {
                   <p className="text-lg sm:text-xl font-semibold text-white truncate">{fullName}</p>
                 </div>
 
-                {/* Email */}
+               
                 <div className="border-l-2 sm:border-l-4 border-black pl-3 sm:pl-5 py-3 bg-black rounded-r-lg">
                   <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-1">
                     <div className="flex items-center gap-2">
@@ -134,7 +133,7 @@ export default async function ProfilePage() {
                   <p className="text-base sm:text-lg font-medium text-white truncate">{email}</p>
                 </div>
 
-                {/* Phone */}
+              
                 <div className="border-l-2 sm:border-l-4 border-black pl-3 sm:pl-5 py-3 text-white bg-black rounded-r-lg">
                   <div className="flex items-center gap-2 sm:gap-3 mb-1">
                     <FaPhone className="text-sm sm:text-base" />
@@ -148,14 +147,14 @@ export default async function ProfilePage() {
                   )}
                 </div>
 
-                {/* Last Login */}
+                
                 <div className="border-l-2 sm:border-l-4 border-black pl-3 sm:pl-5 py-3 bg-black text-white">
                   <p className="text-xs sm:text-sm font-medium uppercase tracking-wider mb-1">Last Login</p>
                   <p className="text-base sm:text-lg">{lastLogin}</p>
                 </div>
               </div>
 
-              {/* Logout Button */}
+              
               <div className="mt-8 sm:mt-10 pt-4 sm:pt-6 border-t border-gray-100">
                 <LogoutButton />
               </div>

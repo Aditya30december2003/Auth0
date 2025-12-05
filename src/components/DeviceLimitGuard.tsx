@@ -1,4 +1,3 @@
-// components/DeviceLimitGuard.tsx
 "use client";
 
 import { useEffect, useState } from "react";
@@ -44,7 +43,7 @@ export default function DeviceLimitGuard() {
           setDevices(res.data.devices);
           setMaxDevices(res.data.maxDevices);
         }
-        // TEMPORARY HACK: force popup always
+        // 
         // setOverLimit(true);
         // setDevices([
         //   {
@@ -94,7 +93,6 @@ export default function DeviceLimitGuard() {
     }
   };
 
-  // If within limit, render nothing
   if (!overLimit) return null;
 
   return (
@@ -108,7 +106,7 @@ export default function DeviceLimitGuard() {
           `
         }}
       >
-        {/* Header */}
+        
         <div className="mb-6">
           <h2 className="text-2xl mb-2 font-bold tracking-tight">
             Too many devices logged in
@@ -121,7 +119,7 @@ export default function DeviceLimitGuard() {
           </p>
         </div>
 
-        {/* Devices List */}
+        
         <div className="space-y-3 max-h-56 overflow-y-auto mb-6 pr-2">
           {devices.map((d) => (
             <div
@@ -153,7 +151,7 @@ export default function DeviceLimitGuard() {
           ))}
         </div>
 
-        {/* Cancel Button */}
+       
         <div className="flex justify-end">
           <button
             onClick={handleCancelLogin}
@@ -166,7 +164,7 @@ export default function DeviceLimitGuard() {
           </button>
         </div>
 
-        {/* Decorative corner marks */}
+        
         <div className="flex justify-between mt-4 pt-4 border-t border-gray-300">
           <div className="flex space-x-2">
             <div className="w-2 h-2 border border-black bg-black"></div>

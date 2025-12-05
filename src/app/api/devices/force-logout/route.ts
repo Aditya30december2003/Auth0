@@ -1,7 +1,7 @@
-// app/api/devices/force-logout/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import { auth0 } from "@/lib/auth0";
 import axios from "axios";
+import { getManagementApiToken } from "@/lib/auth0Token";
 
 type DeviceInfo = {
   deviceId: string;
@@ -36,7 +36,7 @@ export async function POST(req: NextRequest) {
   }
 
   const domain = process.env.AUTH0_DOMAIN!;
-  const mgmtToken = process.env.API_TOKEN!;
+  const mgmtToken = await getManagementApiToken()
 
   try {
     const { data: freshUser } = await axios.get(
@@ -52,12 +52,11 @@ export async function POST(req: NextRequest) {
     let devices: DeviceInfo[] = freshUser.user_metadata?.devices || [];
     const now = Date.now();
 
-    // 1) Mark kicked device as killed
+    
     devices = devices.map((d) =>
       d.deviceId === deviceIdToKick ? { ...d, killed: true } : d
     );
 
-    // 2) Ensure current device is present & active
     const idxCurrent = devices.findIndex(
       (d) => d.deviceId === currentDeviceId
     );
