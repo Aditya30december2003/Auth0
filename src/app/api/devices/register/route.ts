@@ -13,7 +13,7 @@ type DeviceInfo = {
 };
 
 
-const N = 1;//3
+const N = 3;//1
 
 export async function POST(req: NextRequest) {
   const session = await auth0.getSession(req);
