@@ -1,0 +1,14 @@
+// app/api/auth/me/route.ts
+import { NextRequest, NextResponse } from 'next/server';
+import { auth0 } from '@/lib/auth0';
+
+export async function GET(req: NextRequest) {
+  const res = new NextResponse();
+  const session = await auth0.getSession(req, res);
+  
+  if (!session?.user) {
+    return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
+  }
+  
+  return NextResponse.json(session.user);
+}
