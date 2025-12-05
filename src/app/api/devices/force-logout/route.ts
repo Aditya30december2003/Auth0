@@ -12,8 +12,8 @@ type DeviceInfo = {
 };
 
 export async function POST(req: NextRequest) {
-  const res = new NextResponse();
-  const session = await auth0.getSession(req, res);
+  
+  const session = await auth0.getSession(req);
 
   if (!session?.user?.sub) {
     return NextResponse.json({ error: "Not authenticated" }, { status: 401 });

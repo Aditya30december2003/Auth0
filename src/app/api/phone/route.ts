@@ -4,10 +4,9 @@ import { auth0 } from '@/lib/auth0'
 import axios from 'axios'
 
 export async function POST(req: NextRequest) {
-  const res = new NextResponse()
 
   // 1) Get the logged-in user from Auth0 session
-  const session = await auth0.getSession(req, res)
+  const session = await auth0.getSession(req)
   if (!session?.user?.sub) {
     return NextResponse.json({ error: 'Not authenticated' }, { status: 401 })
   }
