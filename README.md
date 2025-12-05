@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+This project is built using Next.js, Auth0, Tailwind CSS, Axios, React Hot Toast, React Icons, and the package country-list-with-dial-code-and-flag for phone number inputs.
 
-## Getting Started
+The application implements:
 
-First, run the development server:
+User authentication using Auth0
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+N-device login limitation (here N = 3)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+User metadata storage for device tracking and phone numbers
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Protected and public routes using Auth0 middleware
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Additional pages such as a Phone Number Setup page and a Forced Logout page
 
-## Learn More
+I used Auth0 User Metadata to store both the user's phone number and the list of devices logged in with the same account.
 
-To learn more about Next.js, take a look at the following resources:
+Example metadata structure:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+{
+  "phoneNumber": "+19414848662",
+  "devices": [
+    {
+      "deviceId": "a5e95256-8e89-47e6-b3cf-c839710b5835",
+      "browserName": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36",
+      "createdAt": 1764956271431,
+      "lastSeen": 1764957066825,
+      "killed": false
+    }
+  ]
+}
+Each device entry stores:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+deviceId → unique identifier generated on login
 
-## Deploy on Vercel
+browserName → extracted from user agent(which contain some error)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+createdAt → first login timestamp
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+lastSeen → updated on every page load
+
+killed → marks whether a device was force-logged-out
+
+
+
+When a user logs in, their device is registered in metadata.
+
+If the number of active devices exceeds N (3 devices):
+
+The user is asked whether they want to log out an existing device.
+
+If they choose to force logout one, that device’s killed property becomes true.
+
+When a “killed” device visits the site again, it is automatically redirected to the Forced Logout page.
+
+This design allows the frontend to enforce device limits without external storage.
+
+Limitations (Important)
+
+Storing device information inside Auth0 User Metadata works for this project, but it has a few limitations:
+
+Metadata updates are subject to rate limits.
+
+If multiple logins happen quickly, metadata writes may conflict.
+
+Device tracking logic runs client-side, meaning devices could theoretically bypass metadata updates in certain edge cases.
+
+User metadata is not ideal for high-frequency state changes like device heartbeats.
+
+Best Solution for Future Improvements
+
+During research, I found that using Redis is the recommended method to properly implement multi-device limits because: Many big tech companies use this Method
+I plan to revisit the project in the future and move the device-tracking system from metadata to Redis, which will provide a more secure and scalable solution.
